@@ -23,7 +23,7 @@ public class CustomerResource {
   private PersistenceService persistenceService;
 
   @GET
-  public List<Customer> getCustomerList() {
+  public List<Customer> getCustomers() {
     return persistenceService.getAllCustomers();
   }
 }
