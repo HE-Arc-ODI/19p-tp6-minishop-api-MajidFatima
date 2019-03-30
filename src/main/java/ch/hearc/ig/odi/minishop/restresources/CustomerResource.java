@@ -13,7 +13,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -51,6 +53,18 @@ retourne un tableaux d'objets JSON (MediaType: application/json), voici un exemp
       e.printStackTrace();
       throw new NotFoundException("the customer does not exist.");
     }
+  }
+
+  /*
+  Pour la ressource POST /customer, il faut que vous passiez dans le corps
+  de la requête (MediaType : application/x-www-form-urlencoded) les paramètres suivants:
+   */
+
+  @POST
+  public Customer createCustomer(@FormParam("username") String username,
+      @FormParam("firstname") String firstname, @FormParam("lastname") String lastname,
+      @FormParam("email") String email, @FormParam("phone") String phone) {
+    return persistenceService.createAndPersistCustomer(username, firstname, lastname, email, phone);
   }
 }
 
