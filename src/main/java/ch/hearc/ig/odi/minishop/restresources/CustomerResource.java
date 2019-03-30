@@ -66,5 +66,22 @@ retourne un tableaux d'objets JSON (MediaType: application/json), voici un exemp
       @FormParam("email") String email, @FormParam("phone") String phone) {
     return persistenceService.createAndPersistCustomer(username, firstname, lastname, email, phone);
   }
+
+  /*
+  Pour la ressource PUT /customer/1, il faut que vous passiez
+  dans le corps de la requête (MediaType: application/json)
+  un JSON object ayant les attributs suivants:
+   */
+  @PUT
+  @Path("{id}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Customer updateCustomer(@PathParam("id") Long id, Customer customer) {
+    try {
+      return persistenceService.updateCustomer(id, customer);
+    } catch (CustomerException e) {
+      e.printStackTrace();
+      throw new NullFormException("customer couldn't have been updated.");
+    }
+  }
 }
 
