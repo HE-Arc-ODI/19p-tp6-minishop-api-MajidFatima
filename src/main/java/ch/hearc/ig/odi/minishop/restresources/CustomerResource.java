@@ -13,6 +13,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -81,6 +82,20 @@ retourne un tableaux d'objets JSON (MediaType: application/json), voici un exemp
     } catch (CustomerException e) {
       e.printStackTrace();
       throw new NullFormException("customer couldn't have been updated.");
+    }
+  }
+  /*
+  ressource DELET
+     */
+  @DELETE
+  @Path("{id}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public void deleteCustomer(@PathParam("id") Long id) {
+    try {
+      persistenceService.deleteCustomer(id);
+    } catch (CustomerException e) {
+      e.printStackTrace();
+      throw new NullFormException("customer couldn't have been deleted");
     }
   }
 }
